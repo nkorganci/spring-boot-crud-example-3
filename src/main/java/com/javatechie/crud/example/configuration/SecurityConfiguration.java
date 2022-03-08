@@ -11,14 +11,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //sifrelerei devredisi yapiyor
-        //
-        http.
-                authorizeRequests(). // Istekleri denetle
-                anyRequest().       // tum istekleri
+        // csrf().disable(). : without permission or role we can update and post
+        //  antMatchers("/","index","css/*","/js/*"). // Do not ask password for these links
+        http.csrf().disable().
+                authorizeRequests().
+                antMatchers("/","index","css/*","/js/*").
+                permitAll().// Istekleri denetle
+                anyRequest(). // tum istekleri
                 authenticated().    // Sifreli olarak kullan
                 and().
                 formLogin().
                 and().
                 httpBasic();        // Basic kimlik denetimini kullan
+
     }
 }

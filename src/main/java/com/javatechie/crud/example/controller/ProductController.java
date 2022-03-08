@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.util.List;
 
 @RestController
+//@RequestMapping("/myProducts")
 public class ProductController {
     @Autowired
     private ProductService productService;
