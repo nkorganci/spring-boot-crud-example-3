@@ -33,6 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 antMatchers("/","index","css/*","/js/*").
                 // Role based authentication
                 permitAll().// Istekleri denetle
+               // antMatchers("/").hasRole(KisiRole.USER.name()).// User rolunun erisebilecegi path
+              // antMatchers("/**").hasRole(KisiRole.ADMIN.name()).
                 anyRequest(). // tum istekleri
                 authenticated().    // Sifreli olarak kullan
                 and().
@@ -49,11 +51,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //UserDetails user1 = User.builder().username("user").password(passwordEncoder.encode("1234")).roles("USER").build();
         UserDetails user1 = User.builder().username("user").password(passwordEncoder.encode("1234"))
                 //.roles("USER").build();
-                .authorities(KisiRole.USER.name()).build();// Olusturulan rolun kullanilmasi
+                .roles(KisiRole.USER.name()).build();// Olusturulan rolun kullanilmasi
 
         UserDetails admin1 = User.builder().username("admin").password(passwordEncoder.encode("5678"))
                 //.roles("ADMIN").build();
-                .authorities(KisiRole.ADMIN.name()).build();
+                .roles(KisiRole.ADMIN.name()).build();
 
         return new InMemoryUserDetailsManager(user1,admin1);
     }
