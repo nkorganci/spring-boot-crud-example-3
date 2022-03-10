@@ -3,6 +3,7 @@ package com.javatechie.crud.example.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,6 +15,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true) // Method based authitenciation lari etkin hale getiriri
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private PasswordEncoder passwordEncoder;
@@ -32,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests().
                 antMatchers("/","index","css/*","/js/*").
                 // Role based authentication
+                        // Method Based authentication
                 permitAll().// Istekleri denetle
                // antMatchers("/").hasRole(KisiRole.USER.name()).// User rolunun erisebilecegi path
               // antMatchers("/**").hasRole(KisiRole.ADMIN.name()).
